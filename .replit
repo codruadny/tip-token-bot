@@ -1,0 +1,28 @@
+modules = ["python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["cargo", "libiconv", "libxcrypt", "openssl", "pkg-config", "rustc"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "TIP Token Bot"
+
+[[workflows.workflow]]
+name = "TIP Token Bot"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install aiogram fastapi uvicorn web3 eth-account pydantic-settings cachetools cryptography sqlalchemy"
+
+[deployment]
+run = ["sh", "-c", "pip install aiogram fastapi uvicorn web3 eth-account pydantic-settings cachetools cryptography sqlalchemy"]
